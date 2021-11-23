@@ -1,10 +1,5 @@
-from flask import Flask, render_template
-import mysql.connector
-
-db_connection = mysql.connector.connect(host='localhost',
-                                        user='root',
-                                        password='univesp',
-                                        database='bdquestoes')
+from flask import Flask, render_template, request
+from db import db_connection
 
 app = Flask('__name__')
 
@@ -12,13 +7,20 @@ app = Flask('__name__')
 def index():
     return render_template('index.html')
 
-@app.route('/Eletricidade')
-def elet():
+@app.route('/questoes')
+def questoes():
+    dificuldade = request.args.get('dificuldade')
+    modulo = request.args.get('modulo')
+
     cursor = db_connection.cursor()
-
-    sql = ('SELECT enunciado, gabarito FROM questoes')
+    
+    sql = f"SELECT * FROM questoesbd WHERE dificuldade = '{dificuldade}' and modulo = '{modulo}'"
     cursor.execute(sql)
+    rows = cursor.fetchall() 
 
-    for enunciado, gabarito in cursor:
-        print('Enunciado: {} \nGabarito: {}\n'.format(enunciado, gabarito))
-    return(enunciado, gabarito)
+
+    db_connection.close()
+    return render_template('questoes.html', rows=rows)
+
+if __name__ == '__main__':
+    app.run('0.0.0.0', 5000, debug=True)
