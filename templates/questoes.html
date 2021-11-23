@@ -22,13 +22,15 @@
         </figure>
     </div>
 
-        {% for questao in questoes %}
-        <div class="pb-4">
-            <pre class="wrap"><strong>Pergunta:</strong> {{ questao[0] }}</pre>
-            <p style="color: #c22c2ca1">Gabarito: {{ questao[1] }}</p>
-        </div>
-        {% endfor %}
+    {% for questao in questoes %}
+    <div class="pb-4">
+        <pre class="wrap"><strong>Pergunta:</strong> {{ questao[0] }}</pre>
+        <p style="color: #c22c2ca1">Gabarito: {{ questao[1] }}</p>
+    </div>
+    {% endfor %}
 
+
+    <button class="btn btn-outline-danger" onclick="window.history.back();">Voltar</button>
 </body>
 
 </html>
