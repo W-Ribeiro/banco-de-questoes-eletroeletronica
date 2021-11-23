@@ -14,12 +14,10 @@ def questoes():
 
     cursor = db_connection.cursor()
     
-    sql = f"SELECT * FROM questoesbd WHERE dificuldade = '{dificuldade}' and modulo = '{modulo}'"
+    sql = f"SELECT * FROM questoesdb WHERE dificuldade = '{dificuldade}' and modulo = '{modulo}'"
     cursor.execute(sql)
-    rows = cursor.fetchall() 
+    rows = cursor.fetchall()
 
-
-    db_connection.close()
     return render_template('questoes.html', rows=rows)
 
 if __name__ == '__main__':
